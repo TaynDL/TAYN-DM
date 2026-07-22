@@ -1,0 +1,31 @@
+# Build outputs
+bin/
+obj/
+publish*/
+tests/bin/
+tests/obj/
+installer/SetupBuilder/bin/
+installer/SetupBuilder/obj/
+installer/SetupBuilder/publish/
+
+# Local state and packages
+.appdata/
+.packages/
+*.user
+*.suo
+.vs/
+
+# Generated release payloads
+installer/payload*.zip
+installer/*.cab
+installer/*.CAB
+installer/*.DDF
+installer/*.RPT
+installer/*_LAYOUT.INF
+installer/~*
+
+# OS/editor files
+Thumbs.db
+.DS_Store
+*.tmp
+*.log

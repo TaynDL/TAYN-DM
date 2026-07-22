@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>TaynDM</AssemblyName>
+    <RootNamespace>DownloadYarPro</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup><Compile Remove="tests\**\*.cs;installer\SetupBuilder\**\*.cs"/><None Remove="tests\**\*;installer\SetupBuilder\**\*"/><None Update="installer\uninstall.ps1" CopyToPublishDirectory="PreserveNewest" Link="uninstall.ps1"/><None Update="browser-extension\**\*" CopyToPublishDirectory="PreserveNewest"/></ItemGroup>
+  <ItemGroup><Resource Include="assets\tayn-logo.jpg"/></ItemGroup>
+</Project>
