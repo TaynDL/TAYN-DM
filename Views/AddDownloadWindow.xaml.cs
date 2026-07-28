@@ -1,7 +1,7 @@
 using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Input;
-namespace DownloadYarPro;
+namespace TaynDM.Views;
 public partial class AddDownloadWindow : Window
 {
     public string DownloadUrl => UrlBox.Text.Trim(); public string Folder => FolderBox.Text.Trim();

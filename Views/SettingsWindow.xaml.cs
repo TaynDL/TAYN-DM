@@ -1,5 +1,5 @@
 using System.Windows;
-namespace DownloadYarPro;
+namespace TaynDM.Views;
 public partial class SettingsWindow : Window
 {
     private readonly AppSettings settings;
