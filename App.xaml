@@ -636,7 +636,6 @@
                       <LinearGradientBrush StartPoint="0,0"
                                            EndPoint="1,1"
                                            SpreadMethod="Tile"
-                                           TileMode="Tile"
                                            Viewport="0,0,0.14,0.14"
                                            ViewportUnits="RelativeToBoundingBox">
                         <GradientStop Color="Transparent" Offset="0"/>
