@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using TaynDM;
 
@@ -72,13 +73,13 @@ public partial class MainWindow : Window
             : FlowDirection.RightToLeft;
         DetailsPanel.FlowDirection = FlowDirection.LeftToRight;
 
-        SearchHint.Text = english ? "Search downloads..." : "جست‌وجو...";
+        SearchHint.Text = english ? "Search downloads..." : "\u062C\u0633\u062A\u200C\u0648\u062C\u0648...";
         NoSelectionTitle.Text = english
             ? "Select a download"
-            : "یک دانلود را انتخاب کنید";
+            : "\u06CC\u06A9 \u062F\u0627\u0646\u0644\u0648\u062F \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F";
         NoSelectionHint.Text = english
             ? "File details will appear here"
-            : "جزئیات فایل اینجا نمایش داده می‌شود";
+            : "\u062C\u0632\u0626\u06CC\u0627\u062A \u0641\u0627\u06CC\u0644 \u0627\u06CC\u0646\u062C\u0627 \u0646\u0645\u0627\u06CC\u0634 \u062F\u0627\u062F\u0647 \u0645\u06CC\u200C\u0634\u0648\u062F";
         LanguageButton.Content = english ? "FA" : "EN";
 
         foreach (var item in viewModel.Downloads)
@@ -145,7 +146,7 @@ public partial class MainWindow : Window
         {
             MessageBox.Show(
                 this,
-                "خطا: " + ex.Message,
+                "\u062E\u0637\u0627: " + ex.Message,
                 "TaynDM",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -153,27 +154,24 @@ public partial class MainWindow : Window
     }
 
     private void Start_Click(object sender, RoutedEventArgs e)
-        => viewModel.EnqueueSelected(SelectedDownload);
+        => viewModel.EnqueueSelected(viewModel.SelectedDownload);
 
     private void Pause_Click(object sender, RoutedEventArgs e)
-        => viewModel.PauseSelected(SelectedDownload);
+        => viewModel.PauseSelected(viewModel.SelectedDownload);
 
     private void Remove_Click(object sender, RoutedEventArgs e)
-        => viewModel.RemoveSelected(SelectedDownload, this);
+        => viewModel.RemoveSelected(viewModel.SelectedDownload, this);
 
     private void OpenFolder_Click(object sender, RoutedEventArgs e)
-        => viewModel.OpenFolder(SelectedDownload);
+        => viewModel.OpenFolder(viewModel.SelectedDownload);
 
     private void PriorityUp_Click(object sender, RoutedEventArgs e)
-        => viewModel.ChangePriority(SelectedDownload, 1);
+        => viewModel.ChangePriority(viewModel.SelectedDownload, 1);
 
     private void PriorityDown_Click(object sender, RoutedEventArgs e)
-        => viewModel.ChangePriority(SelectedDownload, -1);
+        => viewModel.ChangePriority(viewModel.SelectedDownload, -1);
 
     // ── External link injection (from App.xaml.cs) ───────────────────
 
-    /// <summary>
-    /// Pass-through for App.xaml.cs to inject external links.
-    /// </summary>
     public void AddExternalLink(string url) => viewModel.AddExternalLink(url);
 }
