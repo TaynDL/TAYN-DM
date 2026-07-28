@@ -104,28 +104,29 @@ public partial class MainWindow : Window
 
     // ── Animation ────────────────────────────────────────────────────
 
-    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        // Trigger initial responsive state
-        MainWindow_SizeChanged(this, new SizeChangedEventArgs(
-            SizeChangedEvent, DesiredSize, DesiredSize));
-
-        CenterPanel.Opacity = 0;
-        var move = new TranslateTransform(0, 14);
-        CenterPanel.RenderTransform = move;
-
-        CenterPanel.BeginAnimation(OpacityProperty,
-            new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(260))
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
             {
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-            });
+                // Trigger initial responsive state
+                MainWindow_SizeChanged(this, new SizeChangedEventArgs(
+                    SizeChangedEvent, this, this));
 
-        move.BeginAnimation(TranslateTransform.YProperty,
-            new DoubleAnimation(14, 0, TimeSpan.FromMilliseconds(260))
-            {
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-            });
-    }
+                CenterPanel.Opacity = 0;
+                var move = new TranslateTransform(0, 14);
+                CenterPanel.RenderTransform = move;
+
+                CenterPanel.BeginAnimation(OpacityProperty,
+                    new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(260))
+                    {
+                        EasingFunction = new SineEase { EasingMode = EasingMode.EaseInOut },
+                        Duration = TimeSpan.FromMilliseconds(260)
+                    });
+
+                move.BeginAnimation(TranslateTransform.YProperty,
+                    new DoubleAnimation(14, 0, TimeSpan.FromMilliseconds(260))
+                    {
+                        EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+                    });
+            }
 
     // ── Settings ─────────────────────────────────────────────────────
 

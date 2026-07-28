@@ -14,11 +14,15 @@ A modern Windows download manager with Persian and English interfaces.
 - SHA-256 calculation and optional Windows Defender scan
 - Persian and English user interfaces
 - Portable and installable Windows editions
+- **NEW v3.0: Revolutionary Aurora UI (Dark/Light themes)**
+- **NEW v3.0: Animated progress bars with live speed charts**
+- **NEW v3.0: MTProto proxy auto-discovery for Iran**
+- **NEW v3.0: Responsive layout with collapsible panels**
 
 ## Requirements
 
 - Windows 10 or Windows 11
-- Microsoft .NET 8 Desktop Runtime
+- Microsoft .NET 8 Desktop Runtime (for portable version)
 
 ## Build
 
@@ -39,7 +43,7 @@ The supplied URL must point directly to a file. A regular webpage or video-playe
 
 ## Releases
 
-Windows Setup and Portable packages are published in GitHub Releases. Pushing a tag such as `v2.6.1` automatically runs tests, builds both packages and creates a Release.
+Windows Setup and Portable packages are published in GitHub Releases. Pushing a tag such as `v3.0.0` automatically runs tests, builds both packages and creates a Release.
 
 ## License
 
