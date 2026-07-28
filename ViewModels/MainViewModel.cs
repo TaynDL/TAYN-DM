@@ -221,7 +221,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     {
         if (item == null) return;
 
-        string text = $"«{item.FileName»} از فهرست حذف شود?\nفایل روی دیسک پاک نمی‌شود.";
+        string text = $"\u00AB{item.FileName}\u00BB \u0627\u0632 \u0641\u0647\u0631\u0633\u062A \u062D\u0630\u0641 \u0634\u0648\u062F?\n\u0641\u0627\u06CC\u0644 \u0631\u0648\u06CC \u062F\u06CC\u0633\u06A9 \u067E\u0627\u06A9 \u0646\u0645\u06CC\u200C\u0634\u0648\u062F.";
         var result = System.Windows.MessageBox.Show(
             owner, text, "حذف",
             System.Windows.MessageBoxButton.YesNo,
