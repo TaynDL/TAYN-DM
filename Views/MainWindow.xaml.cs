@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -28,7 +31,7 @@ public partial class MainWindow : Window
         Closing += (_, _) => viewModel.Shutdown();
     }
 
-    // ── Responsive layout ────────────────────────────────────────
+    // ── Responsive layout ────────────────────────────────────────────────
 
     private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
     {
@@ -95,7 +98,7 @@ public partial class MainWindow : Window
             : "\u06CC\u06A9 \u062F\u0627\u0646\u0644\u0648\u062F \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F";
         NoSelectionHint.Text = english
             ? "File details will appear here"
-            : "\u062C\u0632\u0626\u06CC\u0627\u062A \u0641\u0627\u06CC\u0644 \u0627\u06CC\u0646\u062C\u0627 \u0646\u0645\u0627\u06CC\u0634 \u062F\u0627\u062F\u0647 \u0645\u06CC\u200C\u0634\u0648\u062F";
+            : "\u062C\u0632\u0626\u06CC\u0627\u062A \u0641\u0627\u06CC\u0644 \u0627\u06CC\u0646\u062C\u0627 \u0646\u0627\u0645\u0627\u06CC\u0634 \u062F\u0627\u062F\u0647 \u0645\u06CC\u200C\u0634\u0648\u062F";
         LanguageButton.Content = english ? "FA" : "EN";
 
         foreach (var item in viewModel.Downloads)
@@ -104,98 +107,46 @@ public partial class MainWindow : Window
 
     // ── Animation ────────────────────────────────────────────────────
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        // Trigger initial responsive state
+        MainWindow_SizeChanged(this, new SizeChangedEventArgs(SizeChangedEvent, this, this));
+
+        CenterPanel.Opacity = 0;
+        var move = new TranslateTransform(0, 14);
+        CenterPanel.RenderTransform = move;
+
+        CenterPanel.BeginAnimation(OpacityProperty,
+            new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(260))
             {
-                // Trigger initial responsive state
-                MainWindow_SizeChanged(this, new SizeChangedEventArgs(
-                    SizeChangedEvent, this, this));
+                EasingFunction = new SineEase { EasingMode = EasingMode.EaseInOut },
+                Duration = TimeSpan.FromMilliseconds(260)
+            });
 
-                CenterPanel.Opacity = 0;
-                var move = new TranslateTransform(0, 14);
-                CenterPanel.RenderTransform = move;
-
-                CenterPanel.BeginAnimation(OpacityProperty,
-                    new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(260))
-                    {
-                        EasingFunction = new SineEase { EasingMode = EasingMode.EaseInOut },
-                        Duration = TimeSpan.FromMilliseconds(260)
-                    });
-
-                move.BeginAnimation(TranslateTransform.YProperty,
-                    new DoubleAnimation(14, 0, TimeSpan.FromMilliseconds(260))
-                    {
-                        EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-                    });
-            }
+        move.BeginAnimation(TranslateTransform.YProperty,
+            new DoubleAnimation(14, 0, TimeSpan.FromMilliseconds(260))
+            {
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            });
+    }
 
     // ── Settings ─────────────────────────────────────────────────────
 
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
         if (new SettingsWindow(viewModel.Settings) { Owner = this }.ShowDialog() == true)
-        {
-            ApplyTheme();
-            viewModel.RefreshEngineIfIdle();
-        }
+            viewModel.RefreshSettings();
     }
 
-    private void ApplyTheme()
-    {
-        // Apply the theme from settings to the application
-        ThemeManager.LoadFromSettings(viewModel.Settings);
-        ThemeManager.Apply();
-    }
+    // ── Download search ───────────────────────────────────────────────
 
-    // ── Search / Filter ──────────────────────────────────────────────
+    private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        => viewModel.SearchText = SearchBox.Text;
 
-    private void Search_Changed(object sender, RoutedEventArgs e)
-    {
-        viewModel.ApplySearchFilter(SearchBox?.Text, FilterBox?.SelectedItem);
-    }
+    // ── Download listing ─────────────────────────────────────────────────
 
-    // ── Download actions ─────────────────────────────────────────────
-
-    private void Add_Click(object sender, RoutedEventArgs e)
-    {
-        var dialog = new AddDownloadWindow(viewModel.Settings.DefaultFolder)
-        {
-            Owner = this
-        };
-
-        if (dialog.ShowDialog() != true) return;
-
-        try
-        {
-            viewModel.AddDownload(dialog.Folder, dialog.DownloadUrl);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(
-                this,
-                "\u062E\u0637\u0627: " + ex.Message,
-                "TaynDM",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-        }
-    }
-
-    private void Start_Click(object sender, RoutedEventArgs e)
-        => viewModel.EnqueueSelected(viewModel.SelectedDownload);
-
-    private void Pause_Click(object sender, RoutedEventArgs e)
-        => viewModel.PauseSelected(viewModel.SelectedDownload);
-
-    private void Remove_Click(object sender, RoutedEventArgs e)
-        => viewModel.RemoveSelected(viewModel.SelectedDownload, this);
-
-    private void OpenFolder_Click(object sender, RoutedEventArgs e)
-        => viewModel.OpenFolder(viewModel.SelectedDownload);
-
-    private void PriorityUp_Click(object sender, RoutedEventArgs e)
-        => viewModel.ChangePriority(viewModel.SelectedDownload, 1);
-
-    private void PriorityDown_Click(object sender, RoutedEventArgs e)
-        => viewModel.ChangePriority(viewModel.SelectedDownload, -1);
+    private void DownloadsList_SelectionChanged(object sender, SelectionChangedEventArgs<DownloadItem> e)
+        => viewModel.SelectedDownload = e.AddedItems.Cast<DownloadItem>().FirstOrDefault();
 
     // ── External link injection (from App.xaml.cs) ───────────────────
 
