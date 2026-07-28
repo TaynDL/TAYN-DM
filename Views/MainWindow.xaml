@@ -263,7 +263,7 @@
                       HorizontalAlignment="Right"
                       Effect="{StaticResource SoftShadow}"
                       ClipToBounds="True">
-                <Image Source="assets/tayn-logo.jpg" Stretch="UniformToFill"/>
+                <Image Source="assets/tayn-logo.png" Stretch="UniformToFill"/>
               </Border>
               <TextBlock Text="TAYN DM" Foreground="White" FontSize="22"
                          FontWeight="Bold" Margin="0,13,0,3"

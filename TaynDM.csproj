@@ -15,6 +15,6 @@
     <None Update="browser-extension\**\*" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\tayn-logo.jpg" />
+    <Resource Include="assets\tayn-logo.png" />
   </ItemGroup>
 </Project>
