@@ -1,0 +1,37 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore TaynDM.csproj
+
+      - name: Build (Release)
+        run: dotnet publish TaynDM.csproj -c Release -r win-x64 --self-contained false -o ./publish
+
+      - name: Zip (Portable)
+        run: Compress-Archive -Path ./publish/* -DestinationPath ./TaynDM-${{ github.ref_name }}-portable.zip
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./TaynDM-${{ github.ref_name }}-portable.zip
+          generate_release_notes: false
