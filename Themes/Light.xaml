@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Aurora Light Theme -->
+    <Color x:Key="BgColor">#F2F5FA</Color>
+    <Color x:Key="SidebarColor">#FFFFFF</Color>
+    <Color x:Key="SurfaceColor">#FFFFFF</Color>
+    <Color x:Key="Surface2Color">#EBF0F7</Color>
+    <Color x:Key="LineColor">#D4DAE5</Color>
+    <Color x:Key="InkColor">#1A2332</Color>
+    <Color x:Key="MutedColor">#6B7A90</Color>
+    <Color x:Key="PrimaryColor">#0A74E6</Color>
+    <Color x:Key="Primary2Color">#0098E0</Color>
+    <Color x:Key="SuccessColor">#16A34A</Color>
+    <Color x:Key="DangerColor">#E11D48</Color>
+
+    <SolidColorBrush x:Key="AppBg" Color="{StaticResource BgColor}"/>
+    <SolidColorBrush x:Key="Sidebar" Color="{StaticResource SidebarColor}"/>
+    <SolidColorBrush x:Key="Surface" Color="{StaticResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="Surface2" Color="{StaticResource Surface2Color}"/>
+    <SolidColorBrush x:Key="Line" Color="{StaticResource LineColor}"/>
+    <SolidColorBrush x:Key="Ink" Color="{StaticResource InkColor}"/>
+    <SolidColorBrush x:Key="Muted" Color="{StaticResource MutedColor}"/>
+    <SolidColorBrush x:Key="Primary" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="Success" Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
+
+    <LinearGradientBrush x:Key="Aurora" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#0098E0" Offset="0"/>
+        <GradientStop Color="#0A74E6" Offset="0.55"/>
+        <GradientStop Color="#0050B5" Offset="1"/>
+    </LinearGradientBrush>
+
+    <DropShadowEffect x:Key="SoftShadow" BlurRadius="28" ShadowDepth="6" Opacity="0.12" Color="#000000"/>
+</ResourceDictionary>

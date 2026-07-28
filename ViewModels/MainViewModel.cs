@@ -39,6 +39,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     private string _footerText = "";
     private string _activeCountText = "00";
     private string _totalCountText = "00";
+    private readonly SpeedHistory _speedHistory = new();
 
     // ── Events ────────────────────────────────────────────────────────
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -67,6 +68,9 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     public AppSettings Settings => _settings;
     public DownloadEngine? Engine => _engine;
     public ObservableCollection<DownloadItem> Downloads { get; } = [];
+
+    /// <summary>Tracks aggregate download speed over time for the chart.</summary>
+    public SpeedHistory SpeedHistory => _speedHistory;
 
     public DownloadItem? SelectedDownload
     {
@@ -110,6 +114,9 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     /// <summary>Port the LinkReceiver bound to.</summary>
     public int ListenerPort => _receiver.Port;
 
+    /// <summary>Is the current theme dark?</summary>
+    public bool IsDarkTheme => ThemeManager.IsDark;
+
     // ── Initialization ────────────────────────────────────────────────
 
     /// <summary>
@@ -118,6 +125,8 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
     /// </summary>
     public void Initialize()
     {
+        ThemeManager.LoadFromSettings(_settings);
+        ThemeManager.Apply();
         _logger.LogInfo("MainViewModel initializing...");
 
         ApplyLanguage();
@@ -307,6 +316,7 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
         item.Cancellation = cts;
         item.Status = Connecting;
         item.Speed = 0;
+        _speedHistory.Clear();
         RefreshStats();
 
         try
@@ -317,7 +327,11 @@ public sealed class MainViewModel : INotifyPropertyChanged, IDisposable
             {
                 item.Downloaded = p.Downloaded;
                 item.Total = p.Total;
-                if (p.BytesPerSecond > 0) item.Speed = p.BytesPerSecond;
+                if (p.BytesPerSecond > 0)
+                {
+                    item.Speed = p.BytesPerSecond;
+                    _speedHistory.AddSample(p.BytesPerSecond);
+                }
             });
 
             await _engine!.DownloadAsync(

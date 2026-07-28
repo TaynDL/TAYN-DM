@@ -28,6 +28,22 @@ public partial class MainWindow : Window
         Closing += (_, _) => viewModel.Shutdown();
     }
 
+    // ── Responsive layout ────────────────────────────────────────
+
+    private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (e.NewSize.Width < 1000)
+        {
+            DetailsPanel.Visibility = Visibility.Collapsed;
+            MainShell.ColumnDefinitions[2].Width = new GridLength(0);
+        }
+        else
+        {
+            DetailsPanel.Visibility = Visibility.Visible;
+            MainShell.ColumnDefinitions[2].Width = new GridLength(292);
+        }
+    }
+
     // ── Window chrome ────────────────────────────────────────────────
 
     private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -90,6 +106,10 @@ public partial class MainWindow : Window
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        // Trigger initial responsive state
+        MainWindow_SizeChanged(this, new SizeChangedEventArgs(
+            SizeChangedEvent, DesiredSize, DesiredSize));
+
         CenterPanel.Opacity = 0;
         var move = new TranslateTransform(0, 14);
         CenterPanel.RenderTransform = move;
@@ -118,7 +138,12 @@ public partial class MainWindow : Window
         }
     }
 
-    private void ApplyTheme() { }
+    private void ApplyTheme()
+    {
+        // Apply the theme from settings to the application
+        ThemeManager.LoadFromSettings(viewModel.Settings);
+        ThemeManager.Apply();
+    }
 
     // ── Search / Filter ──────────────────────────────────────────────
 

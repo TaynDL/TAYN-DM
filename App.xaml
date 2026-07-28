@@ -1,16 +1,676 @@
-<Application x:Class="TaynDM.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Application x:Class="TaynDM.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Application.Resources>
-    <Color x:Key="BgColor">#070B12</Color><Color x:Key="SidebarColor">#0B1018</Color><Color x:Key="SurfaceColor">#111823</Color><Color x:Key="Surface2Color">#161F2D</Color><Color x:Key="LineColor">#233044</Color><Color x:Key="InkColor">#F2F6FC</Color><Color x:Key="MutedColor">#8492A7</Color><Color x:Key="PrimaryColor">#0A84FF</Color><Color x:Key="Primary2Color">#00C6FF</Color><Color x:Key="SuccessColor">#22C55E</Color><Color x:Key="DangerColor">#FF4D64</Color>
-    <SolidColorBrush x:Key="AppBg" Color="{StaticResource BgColor}"/><SolidColorBrush x:Key="Sidebar" Color="{StaticResource SidebarColor}"/><SolidColorBrush x:Key="Surface" Color="{StaticResource SurfaceColor}"/><SolidColorBrush x:Key="Surface2" Color="{StaticResource Surface2Color}"/><SolidColorBrush x:Key="Line" Color="{StaticResource LineColor}"/><SolidColorBrush x:Key="Ink" Color="{StaticResource InkColor}"/><SolidColorBrush x:Key="Muted" Color="{StaticResource MutedColor}"/><SolidColorBrush x:Key="Primary" Color="{StaticResource PrimaryColor}"/><SolidColorBrush x:Key="Success" Color="{StaticResource SuccessColor}"/><SolidColorBrush x:Key="Danger" Color="{StaticResource DangerColor}"/>
-    <LinearGradientBrush x:Key="Aurora" StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#00C6FF" Offset="0"/><GradientStop Color="#0A84FF" Offset="0.55"/><GradientStop Color="#0057D9" Offset="1"/></LinearGradientBrush>
-    <DropShadowEffect x:Key="SoftShadow" BlurRadius="28" ShadowDepth="6" Opacity="0.28" Color="#000000"/>
-    <Style TargetType="Button"><Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="13"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Foreground" Value="#CBD3E2"/><Setter Property="Background" Value="{StaticResource Surface2}"/><Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="16,10"/><Setter Property="Margin" Value="4"/><Setter Property="Cursor" Value="Hand"/><Setter Property="RenderTransformOrigin" Value="0.5,0.5"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="B" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="{TemplateBinding Padding}" RenderTransformOrigin="0.5,0.5"><Border.RenderTransform><ScaleTransform x:Name="Scale" ScaleX="1" ScaleY="1"/></Border.RenderTransform><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="B" Property="Background" Value="#202A40"/><Setter TargetName="B" Property="BorderBrush" Value="#148BE3"/><Trigger.EnterActions><BeginStoryboard><Storyboard><DoubleAnimation Storyboard.TargetName="Scale" Storyboard.TargetProperty="ScaleX" To="1.025" Duration="0:0:0.12"/><DoubleAnimation Storyboard.TargetName="Scale" Storyboard.TargetProperty="ScaleY" To="1.025" Duration="0:0:0.12"/></Storyboard></BeginStoryboard></Trigger.EnterActions><Trigger.ExitActions><BeginStoryboard><Storyboard><DoubleAnimation Storyboard.TargetName="Scale" Storyboard.TargetProperty="ScaleX" To="1" Duration="0:0:0.12"/><DoubleAnimation Storyboard.TargetName="Scale" Storyboard.TargetProperty="ScaleY" To="1" Duration="0:0:0.12"/></Storyboard></BeginStoryboard></Trigger.ExitActions></Trigger><Trigger Property="IsPressed" Value="True"><Setter TargetName="B" Property="Opacity" Value="0.72"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter TargetName="B" Property="Opacity" Value="0.35"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
-    <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="Foreground" Value="White"/><Setter Property="Background" Value="{StaticResource Aurora}"/><Setter Property="BorderThickness" Value="0"/><Setter Property="Padding" Value="19,12"/><Setter Property="Effect" Value="{StaticResource SoftShadow}"/></Style>
-    <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="Background" Value="Transparent"/><Setter Property="BorderThickness" Value="0"/></Style>
-    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource GhostButton}"><Setter Property="Width" Value="38"/><Setter Property="Height" Value="38"/><Setter Property="Padding" Value="0"/><Setter Property="Margin" Value="1"/></Style>
-    <Style TargetType="TextBox"><Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="13"/><Setter Property="Foreground" Value="{StaticResource Ink}"/><Setter Property="Background" Value="#0D1321"/><Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="12,9"/><Setter Property="CaretBrush" Value="#8D7CFF"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="TextBox"><Border x:Name="B" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10"><ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/></Border><ControlTemplate.Triggers><Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="B" Property="BorderBrush" Value="#7C6CF2"/><Setter TargetName="B" Property="Background" Value="#11182A"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
-    <Style TargetType="ComboBoxItem"><Setter Property="Foreground" Value="#DCE4F0"/><Setter Property="Background" Value="#131C2A"/><Setter Property="Padding" Value="10,7"/><Setter Property="HorizontalContentAlignment" Value="Stretch"/></Style>
-    <Style TargetType="ComboBox"><Setter Property="Foreground" Value="{StaticResource Ink}"/><Setter Property="Background" Value="#0D1321"/><Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="FontFamily" Value="Segoe UI"/><Setter Property="FontSize" Value="12"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ComboBox"><Grid><Border x:Name="Outer" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="10"><Grid><ContentPresenter Content="{TemplateBinding SelectionBoxItem}" Margin="12,0,30,0" VerticalAlignment="Center"/><TextBlock Text="▼" Foreground="#6F7E94" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12,0"/></Grid></Border><ToggleButton Background="Transparent" BorderThickness="0" Opacity="0" IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/><Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True" Focusable="False"><Border Background="#131C2A" BorderBrush="#2B3A51" BorderThickness="1" CornerRadius="9" MinWidth="{TemplateBinding ActualWidth}" Margin="0,4,0,0"><ScrollViewer MaxHeight="260"><StackPanel IsItemsHost="True"/></ScrollViewer></Border></Popup></Grid><ControlTemplate.Triggers><Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="Outer" Property="BorderBrush" Value="#0A84FF"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style>
-    <Style TargetType="CheckBox"><Setter Property="Foreground" Value="#C8D0DF"/><Setter Property="FontSize" Value="13"/><Setter Property="FontFamily" Value="Segoe UI"/></Style>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Themes/Dark.xaml"/>
+        <ResourceDictionary Source="Controls/SpeedChart.xaml"/>
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         DARK THEME COLORS (default)
+         All colors used across the UI are defined here as named resources.
+         To switch themes, swap the SolidColorBrush values below (or bind to
+         a theme-aware source in code-behind).
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ── Core palette ─────────────────────────────────────────────────── -->
+    <Color x:Key="AppBgColor">        #070B12</Color>
+    <Color x:Key="SidebarColor">      #0B1018</Color>
+    <Color x:Key="SurfaceColor">      #111823</Color>
+    <Color x:Key="Surface2Color">     #161F2D</Color>
+    <Color x:Key="LineColor">         #233044</Color>
+    <Color x:Key="InkColor">          #F2F6FC</Color>
+    <Color x:Key="MutedColor">        #8492A7</Color>
+    <Color x:Key="PrimaryColor">      #0A84FF</Color>
+    <Color x:Key="Primary2Color">     #00C6FF</Color>
+    <Color x:Key="SuccessColor">      #22C55E</Color>
+    <Color x:Key="DangerColor">       #FF4D64</Color>
+
+    <SolidColorBrush x:Key="AppBg"     Color="{StaticResource AppBgColor}"/>
+    <SolidColorBrush x:Key="Sidebar"   Color="{StaticResource SidebarColor}"/>
+    <SolidColorBrush x:Key="Surface"   Color="{StaticResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="Surface2"  Color="{StaticResource Surface2Color}"/>
+    <SolidColorBrush x:Key="Line"      Color="{StaticResource LineColor}"/>
+    <SolidColorBrush x:Key="Ink"       Color="{StaticResource InkColor}"/>
+    <SolidColorBrush x:Key="Muted"     Color="{StaticResource MutedColor}"/>
+    <SolidColorBrush x:Key="Primary"   Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="Success"   Color="{StaticResource SuccessColor}"/>
+    <SolidColorBrush x:Key="Danger"    Color="{StaticResource DangerColor}"/>
+
+    <!-- ── Window chrome ────────────────────────────────────────────────── -->
+    <Color x:Key="TitleBarColor">      #0B101C</Color>
+    <Color x:Key="TitleBorderColor">   #20283A</Color>
+    <Color x:Key="TitleTextColor">     #D9E0EC</Color>
+    <Color x:Key="WindowBorderColor">  #252D40</Color>
+
+    <SolidColorBrush x:Key="TitleBar"      Color="{StaticResource TitleBarColor}"/>
+    <SolidColorBrush x:Key="TitleBorder"   Color="{StaticResource TitleBorderColor}"/>
+    <SolidColorBrush x:Key="TitleText"     Color="{StaticResource TitleTextColor}"/>
+    <SolidColorBrush x:Key="WindowBorder"  Color="{StaticResource WindowBorderColor}"/>
+
+    <!-- ── Sidebar ──────────────────────────────────────────────────────── -->
+    <Color x:Key="SidebarBorderColor"> #20283A</Color>
+    <Color x:Key="SidebarSepColor">    #202C3E</Color>
+    <Color x:Key="SectionLabelColor">  #415269</Color>
+    <Color x:Key="SubtitleColor">      #3F8BCB</Color>
+
+    <SolidColorBrush x:Key="SidebarBorder" Color="{StaticResource SidebarBorderColor}"/>
+    <SolidColorBrush x:Key="SidebarSep"    Color="{StaticResource SidebarSepColor}"/>
+    <SolidColorBrush x:Key="SectionLabel"  Color="{StaticResource SectionLabelColor}"/>
+    <SolidColorBrush x:Key="Subtitle"      Color="{StaticResource SubtitleColor}"/>
+
+    <!-- ── Language button ──────────────────────────────────────────────── -->
+    <Color x:Key="LangBtnBgColor">       #102944</Color>
+    <Color x:Key="LangBtnBorderColor">   #145C95</Color>
+    <Color x:Key="LangBtnTextColor">     #51B9FF</Color>
+
+    <SolidColorBrush x:Key="LangBtnBg"      Color="{StaticResource LangBtnBgColor}"/>
+    <SolidColorBrush x:Key="LangBtnBorder"  Color="{StaticResource LangBtnBorderColor}"/>
+    <SolidColorBrush x:Key="LangBtnText"    Color="{StaticResource LangBtnTextColor}"/>
+
+    <!-- ── System status ────────────────────────────────────────────────── -->
+    <Color x:Key="StatusBgColor">       #101728</Color>
+    <Color x:Key="StatusBorderColor">   #232C42</Color>
+    <Color x:Key="StatusLabelColor">    #56637A</Color>
+    <Color x:Key="StatusTextColor">     #C3CCDA</Color>
+
+    <SolidColorBrush x:Key="StatusBg"       Color="{StaticResource StatusBgColor}"/>
+    <SolidColorBrush x:Key="StatusBorder"   Color="{StaticResource StatusBorderColor}"/>
+    <SolidColorBrush x:Key="StatusLabel"    Color="{StaticResource StatusLabelColor}"/>
+    <SolidColorBrush x:Key="StatusText"     Color="{StaticResource StatusTextColor}"/>
+
+    <!-- ── Card / download list items ───────────────────────────────────── -->
+    <Color x:Key="CardBgColor">        #151D29</Color>
+    <Color x:Key="CardBorderColor">    #243248</Color>
+    <Color x:Key="CardHoverColor">     #172334</Color>
+    <Color x:Key="CardSelectedColor">  #15243A</Color>
+    <Color x:Key="CardIconBgColor">    #243247</Color>
+
+    <SolidColorBrush x:Key="CardBg"        Color="{StaticResource CardBgColor}"/>
+    <SolidColorBrush x:Key="CardBorder"    Color="{StaticResource CardBorderColor}"/>
+    <SolidColorBrush x:Key="CardHover"     Color="{StaticResource CardHoverColor}"/>
+    <SolidColorBrush x:Key="CardSelected"  Color="{StaticResource CardSelectedColor}"/>
+    <SolidColorBrush x:Key="CardIconBg"    Color="{StaticResource CardIconBgColor}"/>
+
+    <!-- ── Details panel ────────────────────────────────────────────────── -->
+    <Color x:Key="DetailsBgColor">     #0D141F</Color>
+    <Color x:Key="DetailsBorderColor"> #223047</Color>
+    <Color x:Key="SeparatorColor">     #243248</Color>
+    <Color x:Key="IconBgColor">        #202D40</Color>
+    <Color x:Key="DetailGlyphColor">   #B9C4D3</Color>
+
+    <SolidColorBrush x:Key="DetailsBg"      Color="{StaticResource DetailsBgColor}"/>
+    <SolidColorBrush x:Key="DetailsBorder"  Color="{StaticResource DetailsBorderColor}"/>
+    <SolidColorBrush x:Key="Separator"      Color="{StaticResource SeparatorColor}"/>
+    <SolidColorBrush x:Key="IconBg"         Color="{StaticResource IconBgColor}"/>
+    <SolidColorBrush x:Key="DetailGlyph"    Color="{StaticResource DetailGlyphColor}"/>
+
+    <!-- ── Stat cards ───────────────────────────────────────────────────── -->
+    <Color x:Key="StatIconBgColor">    #173642</Color>
+    <Color x:Key="StatIconBg2Color">   #292846</Color>
+
+    <SolidColorBrush x:Key="StatIconBg"    Color="{StaticResource StatIconBgColor}"/>
+    <SolidColorBrush x:Key="StatIconBg2"   Color="{StaticResource StatIconBg2Color}"/>
+
+    <!-- ── Progress bar ─────────────────────────────────────────────────── -->
+    <Color x:Key="ProgressBgColor">    #27354A</Color>
+
+    <SolidColorBrush x:Key="ProgressBg"    Color="{StaticResource ProgressBgColor}"/>
+
+    <!-- ── Search / filter ──────────────────────────────────────────────── -->
+    <Color x:Key="SearchHintColor">    #60718A</Color>
+    <Color x:Key="ActiveFilterBgColor">    #0D4A89</Color>
+    <Color x:Key="ActiveFilterBorderColor">#0A84FF</Color>
+
+    <SolidColorBrush x:Key="SearchHint"        Color="{StaticResource SearchHintColor}"/>
+    <SolidColorBrush x:Key="ActiveFilterBg"    Color="{StaticResource ActiveFilterBgColor}"/>
+    <SolidColorBrush x:Key="ActiveFilterBorder" Color="{StaticResource ActiveFilterBorderColor}"/>
+
+    <!-- ── Text tones ───────────────────────────────────────────────────── -->
+    <Color x:Key="SpeedEtaTextColor">  #708198</Color>
+    <Color x:Key="SeparatorTextColor"> #445268</Color>
+    <Color x:Key="SizeTextColor">      #78879D</Color>
+    <Color x:Key="DetailTextColor">    #75849A</Color>
+    <Color x:Key="DetailLabelColor">   #647289</Color>
+    <Color x:Key="DetailStatusColor">  #159CFF</Color>
+    <Color x:Key="DetailValueColor">   #D3DBE8</Color>
+    <Color x:Key="PercentTextColor">   #1E9BFF</Color>
+    <Color x:Key="GlyphColor">         #AEBBCB</Color>
+    <Color x:Key="FooterColor">        #657188</Color>
+    <Color x:Key="DetailTitleColor">   #6D7B91</Color>
+
+    <SolidColorBrush x:Key="SpeedEtaText"  Color="{StaticResource SpeedEtaTextColor}"/>
+    <SolidColorBrush x:Key="SepText"       Color="{StaticResource SeparatorTextColor}"/>
+    <SolidColorBrush x:Key="SizeText"      Color="{StaticResource SizeTextColor}"/>
+    <SolidColorBrush x:Key="DetailText"    Color="{StaticResource DetailTextColor}"/>
+    <SolidColorBrush x:Key="DetailLabel"   Color="{StaticResource DetailLabelColor}"/>
+    <SolidColorBrush x:Key="DetailStatus"  Color="{StaticResource DetailStatusColor}"/>
+    <SolidColorBrush x:Key="DetailValue"   Color="{StaticResource DetailValueColor}"/>
+    <SolidColorBrush x:Key="PercentText"   Color="{StaticResource PercentTextColor}"/>
+    <SolidColorBrush x:Key="Glyph"         Color="{StaticResource GlyphColor}"/>
+    <SolidColorBrush x:Key="Footer"        Color="{StaticResource FooterColor}"/>
+    <SolidColorBrush x:Key="DetailTitle"   Color="{StaticResource DetailTitleColor}"/>
+
+    <!-- ── DataGrid ─────────────────────────────────────────────────────── -->
+    <Color x:Key="GridHeaderBgColor">    #101625</Color>
+    <Color x:Key="GridHeaderFgColor">    #707E95</Color>
+    <Color x:Key="GridHeaderBorderColor">#212A3D</Color>
+    <Color x:Key="DataGridBorderColor">  #20283A</Color>
+    <Color x:Key="DataGridHoverColor">   #171F31</Color>
+    <Color x:Key="DataGridSelectedColor">#202444</Color>
+
+    <SolidColorBrush x:Key="GridHeaderBg"      Color="{StaticResource GridHeaderBgColor}"/>
+    <SolidColorBrush x:Key="GridHeaderFg"      Color="{StaticResource GridHeaderFgColor}"/>
+    <SolidColorBrush x:Key="GridHeaderBorder"  Color="{StaticResource GridHeaderBorderColor}"/>
+    <SolidColorBrush x:Key="DataGridBorder"    Color="{StaticResource DataGridBorderColor}"/>
+    <SolidColorBrush x:Key="DataGridHover"     Color="{StaticResource DataGridHoverColor}"/>
+    <SolidColorBrush x:Key="DataGridSelected"  Color="{StaticResource DataGridSelectedColor}"/>
+
+    <!-- ── TextBox focus ────────────────────────────────────────────────── -->
+    <Color x:Key="TextBoxBgColor">       #0D1321</Color>
+    <Color x:Key="TextBoxFocusBgColor">  #11182A</Color>
+    <Color x:Key="TextBoxFocusBorderColor">#7C6CF2</Color>
+    <Color x:Key="TextBoxCaretColor">    #8D7CFF</Color>
+
+    <SolidColorBrush x:Key="TextBoxBg"        Color="{StaticResource TextBoxBgColor}"/>
+    <SolidColorBrush x:Key="TextBoxFocusBg"   Color="{StaticResource TextBoxFocusBgColor}"/>
+    <SolidColorBrush x:Key="TextBoxFocusBorder" Color="{StaticResource TextBoxFocusBorderColor}"/>
+    <SolidColorBrush x:Key="TextBoxCaret"     Color="{StaticResource TextBoxCaretColor}"/>
+
+    <!-- ── ComboBox ─────────────────────────────────────────────────────── -->
+    <Color x:Key="ComboItemBgColor">     #131C2A</Color>
+    <Color x:Key="ComboItemFgColor">     #DCE4F0</Color>
+    <Color x:Key="ComboArrowColor">      #6F7E94</Color>
+    <Color x:Key="ComboPopupBorderColor">#2B3A51</Color>
+    <Color x:Key="ComboFocusBorderColor">#0A84FF</Color>
+
+    <SolidColorBrush x:Key="ComboItemBg"       Color="{StaticResource ComboItemBgColor}"/>
+    <SolidColorBrush x:Key="ComboItemFg"       Color="{StaticResource ComboItemFgColor}"/>
+    <SolidColorBrush x:Key="ComboArrow"        Color="{StaticResource ComboArrowColor}"/>
+    <SolidColorBrush x:Key="ComboPopupBorder"  Color="{StaticResource ComboPopupBorderColor}"/>
+    <SolidColorBrush x:Key="ComboFocusBorder"  Color="{StaticResource ComboFocusBorderColor}"/>
+
+    <!-- ── Button hover / press ─────────────────────────────────────────── -->
+    <Color x:Key="BtnHoverBgColor">     #202A40</Color>
+    <Color x:Key="BtnHoverBorderColor"> #148BE3</Color>
+
+    <SolidColorBrush x:Key="BtnHoverBg"      Color="{StaticResource BtnHoverBgColor}"/>
+    <SolidColorBrush x:Key="BtnHoverBorder"  Color="{StaticResource BtnHoverBorderColor}"/>
+
+    <!-- ── CheckBox ─────────────────────────────────────────────────────── -->
+    <Color x:Key="CheckFgColor">       #C8D0DF</Color>
+
+    <SolidColorBrush x:Key="CheckFg"         Color="{StaticResource CheckFgColor}"/>
+
+    <!-- ── ComboBoxItem (standalone) ────────────────────────────────────── -->
+    <Color x:Key="ComboItemStandaloneFgColor">#DCE4F0</Color>
+    <Color x:Key="ComboItemStandaloneBgColor">#131C2A</Color>
+
+    <SolidColorBrush x:Key="ComboItemStandaloneFg" Color="{StaticResource ComboItemStandaloneFgColor}"/>
+    <SolidColorBrush x:Key="ComboItemStandaloneBg" Color="{StaticResource ComboItemStandaloneBgColor}"/>
+
+    <!-- ── Gradient accents ─────────────────────────────────────────────── -->
+    <LinearGradientBrush x:Key="Aurora" StartPoint="0,0" EndPoint="1,1">
+      <GradientStop Color="#00C6FF" Offset="0"/>
+      <GradientStop Color="#0A84FF" Offset="0.55"/>
+      <GradientStop Color="#0057D9" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="AuroraLight" StartPoint="0,0" EndPoint="1,1">
+      <GradientStop Color="#007AFF" Offset="0"/>
+      <GradientStop Color="#5856D6" Offset="0.55"/>
+      <GradientStop Color="#AF52DE" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- ── Effects ──────────────────────────────────────────────────────── -->
+    <DropShadowEffect x:Key="SoftShadow"
+                      BlurRadius="28"
+                      ShadowDepth="6"
+                      Opacity="0.28"
+                      Color="#000000"/>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         LIGHT THEME COLORS
+         Uncomment the block below and swap the Dark references to use
+         the light theme instead.
+         ═══════════════════════════════════════════════════════════════════════
+
+    <Color x:Key="AppBgColor">        #F5F5F7</Color>
+    <Color x:Key="SidebarColor">      #FAFAFA</Color>
+    <Color x:Key="SurfaceColor">      #FFFFFF</Color>
+    <Color x:Key="Surface2Color">     #F0F0F5</Color>
+    <Color x:Key="LineColor">         #E5E5EA</Color>
+    <Color x:Key="InkColor">          #1C1C1E</Color>
+    <Color x:Key="MutedColor">        #8E8E93</Color>
+    <Color x:Key="PrimaryColor">      #007AFF</Color>
+    <Color x:Key="Primary2Color">     #5AC8FA</Color>
+    <Color x:Key="SuccessColor">      #34C759</Color>
+    <Color x:Key="DangerColor">       #FF3B30</Color>
+
+    <Color x:Key="TitleBarColor">      #F5F5F7</Color>
+    <Color x:Key="TitleBorderColor">   #E5E5EA</Color>
+    <Color x:Key="TitleTextColor">     #1C1C1E</Color>
+    <Color x:Key="WindowBorderColor">  #D1D1D6</Color>
+
+    <Color x:Key="SidebarBorderColor"> #E5E5EA</Color>
+    <Color x:Key="SidebarSepColor">    #D1D1D6</Color>
+    <Color x:Key="SectionLabelColor">  #8E8E93</Color>
+    <Color x:Key="SubtitleColor">      #007AFF</Color>
+
+    <Color x:Key="LangBtnBgColor">       #E8F4FD</Color>
+    <Color x:Key="LangBtnBorderColor">   #007AFF</Color>
+    <Color x:Key="LangBtnTextColor">     #007AFF</Color>
+
+    <Color x:Key="StatusBgColor">       #F0F0F5</Color>
+    <Color x:Key="StatusBorderColor">   #E5E5EA</Color>
+    <Color x:Key="StatusLabelColor">    #8E8E93</Color>
+    <Color x:Key="StatusTextColor">     #3C3C43</Color>
+
+    <Color x:Key="CardBgColor">        #FFFFFF</Color>
+    <Color x:Key="CardBorderColor">    #E5E5EA</Color>
+    <Color x:Key="CardHoverColor">     #F0F0F5</Color>
+    <Color x:Key="CardSelectedColor">  #E8F0FE</Color>
+    <Color x:Key="CardIconBgColor">    #F0F0F5</Color>
+
+    <Color x:Key="DetailsBgColor">     #F8F8FA</Color>
+    <Color x:Key="DetailsBorderColor"> #E5E5EA</Color>
+    <Color x:Key="SeparatorColor">     #E5E5EA</Color>
+    <Color x:Key="IconBgColor">        #F0F0F5</Color>
+    <Color x:Key="DetailGlyphColor">   #3C3C43</Color>
+
+    <Color x:Key="StatIconBgColor">    #E3F7ED</Color>
+    <Color x:Key="StatIconBg2Color">   #F0EAFD</Color>
+
+    <Color x:Key="ProgressBgColor">    #E5E5EA</Color>
+
+    <Color x:Key="SearchHintColor">    #8E8E93</Color>
+    <Color x:Key="ActiveFilterBgColor">    #E8F4FD</Color>
+    <Color x:Key="ActiveFilterBorderColor">#007AFF</Color>
+
+    <Color x:Key="SpeedEtaTextColor">  #8E8E93</Color>
+    <Color x:Key="SeparatorTextColor"> #AEAEB2</Color>
+    <Color x:Key="SizeTextColor">      #8E8E93</Color>
+    <Color x:Key="DetailTextColor">    #636366</Color>
+    <Color x:Key="DetailLabelColor">   #8E8E93</Color>
+    <Color x:Key="DetailStatusColor">  #007AFF</Color>
+    <Color x:Key="DetailValueColor">   #3C3C43</Color>
+    <Color x:Key="PercentTextColor">   #007AFF</Color>
+    <Color x:Key="GlyphColor">         #636366</Color>
+    <Color x:Key="FooterColor">        #AEAEB2</Color>
+    <Color x:Key="DetailTitleColor">   #8E8E93</Color>
+
+    <Color x:Key="GridHeaderBgColor">    #F0F0F5</Color>
+    <Color x:Key="GridHeaderFgColor">    #8E8E93</Color>
+    <Color x:Key="GridHeaderBorderColor">#E5E5EA</Color>
+    <Color x:Key="DataGridBorderColor">  #E5E5EA</Color>
+    <Color x:Key="DataGridHoverColor">   #F0F0F5</Color>
+    <Color x:Key="DataGridSelectedColor">#E8F0FE</Color>
+
+    <Color x:Key="TextBoxBgColor">       #F0F0F5</Color>
+    <Color x:Key="TextBoxFocusBgColor">  #FFFFFF</Color>
+    <Color x:Key="TextBoxFocusBorderColor">#007AFF</Color>
+    <Color x:Key="TextBoxCaretColor">    #007AFF</Color>
+
+    <Color x:Key="ComboItemBgColor">     #FFFFFF</Color>
+    <Color x:Key="ComboItemFgColor">     #1C1C1E</Color>
+    <Color x:Key="ComboArrowColor">      #8E8E93</Color>
+    <Color x:Key="ComboPopupBorderColor">#E5E5EA</Color>
+    <Color x:Key="ComboFocusBorderColor">#007AFF</Color>
+
+    <Color x:Key="BtnHoverBgColor">     #E5E5EA</Color>
+    <Color x:Key="BtnHoverBorderColor"> #007AFF</Color>
+
+    <Color x:Key="CheckFgColor">       #1C1C1E</Color>
+
+    <Color x:Key="ComboItemStandaloneFgColor">#1C1C1E</Color>
+    <Color x:Key="ComboItemStandaloneBgColor">#FFFFFF</Color>
+
+    ═══════════════════════════════════════════════════════════════════════ -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         CONTROL STYLES
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ── Default Button ──────────────────────────────────────────────── -->
+    <Style TargetType="Button">
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Foreground" Value="#CBD3E2"/>
+      <Setter Property="Background" Value="{StaticResource Surface2}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="16,10"/>
+      <Setter Property="Margin" Value="4"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="B"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10"
+                    Padding="{TemplateBinding Padding}"
+                    RenderTransformOrigin="0.5,0.5">
+              <Border.RenderTransform>
+                <ScaleTransform x:Name="Scale" ScaleX="1" ScaleY="1"/>
+              </Border.RenderTransform>
+              <ContentPresenter HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="B" Property="Background"
+                        Value="{StaticResource BtnHoverBg}"/>
+                <Setter TargetName="B" Property="BorderBrush"
+                        Value="{StaticResource BtnHoverBorder}"/>
+                <Trigger.EnterActions>
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleX"
+                                       To="1.025" Duration="0:0:0.12"/>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleY"
+                                       To="1.025" Duration="0:0:0.12"/>
+                    </Storyboard>
+                  </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleX"
+                                       To="1" Duration="0:0:0.12"/>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleY"
+                                       To="1" Duration="0:0:0.12"/>
+                    </Storyboard>
+                  </BeginStoryboard>
+                </Trigger.ExitActions>
+              </Trigger>
+              <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="B" Property="Background" Value="#18223A"/>
+                <Setter TargetName="B" Property="BorderBrush" Value="#0A6CD4"/>
+                <Trigger.EnterActions>
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleX"
+                                       To="0.97" Duration="0:0:0.08"/>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleY"
+                                       To="0.97" Duration="0:0:0.08"/>
+                    </Storyboard>
+                  </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                  <BeginStoryboard>
+                    <Storyboard>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleX"
+                                       To="1" Duration="0:0:0.08"/>
+                      <DoubleAnimation Storyboard.TargetName="Scale"
+                                       Storyboard.TargetProperty="ScaleY"
+                                       To="1" Duration="0:0:0.08"/>
+                    </Storyboard>
+                  </BeginStoryboard>
+                </Trigger.ExitActions>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- ── Primary (gradient) Button ───────────────────────────────────── -->
+    <Style x:Key="PrimaryButton" TargetType="Button"
+           BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Background" Value="{StaticResource Aurora}"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="19,12"/>
+      <Setter Property="Effect" Value="{StaticResource SoftShadow}"/>
+    </Style>
+
+    <!-- ── Ghost (transparent) Button ──────────────────────────────────── -->
+    <Style x:Key="GhostButton" TargetType="Button"
+           BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <!-- ── Icon Button (square) ────────────────────────────────────────── -->
+    <Style x:Key="IconButton" TargetType="Button"
+           BasedOn="{StaticResource GhostButton}">
+      <Setter Property="Width" Value="38"/>
+      <Setter Property="Height" Value="38"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="Margin" Value="1"/>
+    </Style>
+
+    <!-- ── TextBox ─────────────────────────────────────────────────────── -->
+    <Style TargetType="TextBox">
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Foreground" Value="{StaticResource Ink}"/>
+      <Setter Property="Background" Value="{StaticResource TextBoxBg}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Padding" Value="12,9"/>
+      <Setter Property="CaretBrush" Value="{StaticResource TextBoxCaret}"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="TextBox">
+            <Border x:Name="B"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="10">
+              <ScrollViewer x:Name="PART_ContentHost"
+                            Margin="{TemplateBinding Padding}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="B" Property="BorderBrush"
+                        Value="{StaticResource TextBoxFocusBorder}"/>
+                <Setter TargetName="B" Property="Background"
+                        Value="{StaticResource TextBoxFocusBg}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- ── ComboBoxItem ────────────────────────────────────────────────── -->
+    <Style TargetType="ComboBoxItem">
+      <Setter Property="Foreground"
+              Value="{StaticResource ComboItemStandaloneFg}"/>
+      <Setter Property="Background"
+              Value="{StaticResource ComboItemStandaloneBg}"/>
+      <Setter Property="Padding" Value="10,7"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    </Style>
+
+    <!-- ── ComboBox ────────────────────────────────────────────────────── -->
+    <Style TargetType="ComboBox">
+      <Setter Property="Foreground" Value="{StaticResource Ink}"/>
+      <Setter Property="Background" Value="{StaticResource TextBoxBg}"/>
+      <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ComboBox">
+            <Grid>
+              <Border x:Name="Outer"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="1"
+                      CornerRadius="10">
+                <Grid>
+                  <ContentPresenter Content="{TemplateBinding SelectionBoxItem}"
+                                    Margin="12,0,30,0"
+                                    VerticalAlignment="Center"/>
+                  <TextBlock Text="&#x25BC;"
+                             Foreground="{StaticResource ComboArrow}"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Center"
+                             Margin="12,0"/>
+                </Grid>
+              </Border>
+              <ToggleButton Background="Transparent"
+                            BorderThickness="0"
+                            Opacity="0"
+                            IsChecked="{Binding IsDropDownOpen,
+                                          RelativeSource={RelativeSource TemplatedParent},
+                                          Mode=TwoWay}"/>
+              <Popup IsOpen="{TemplateBinding IsDropDownOpen}"
+                     Placement="Bottom"
+                     AllowsTransparency="True"
+                     Focusable="False">
+                <Border Background="{StaticResource ComboItemBg}"
+                        BorderBrush="{StaticResource ComboPopupBorder}"
+                        BorderThickness="1"
+                        CornerRadius="9"
+                        MinWidth="{TemplateBinding ActualWidth}"
+                        Margin="0,4,0,0">
+                  <ScrollViewer MaxHeight="260">
+                    <StackPanel IsItemsHost="True"/>
+                  </ScrollViewer>
+                </Border>
+              </Popup>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter TargetName="Outer" Property="BorderBrush"
+                        Value="{StaticResource ComboFocusBorder}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- ── CheckBox ────────────────────────────────────────────────────── -->
+    <Style TargetType="CheckBox">
+      <Setter Property="Foreground" Value="{StaticResource CheckFg}"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontFamily" Value="Segoe UI"/>
+    </Style>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         ANIMATED PROGRESS BAR
+         Custom ProgressBar with diagonal stripe animation.
+         Use:  ProgressBar Style="{StaticResource AnimatedProgressBar}"
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <Style x:Key="AnimatedProgressBar" TargetType="ProgressBar">
+      <Setter Property="Foreground" Value="{StaticResource Aurora}"/>
+      <Setter Property="Background" Value="{StaticResource ProgressBg}"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Height" Value="6"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ProgressBar">
+            <ControlTemplate.Resources>
+              <!-- Fill-animation storyboard (seeked by the control to Value/Maximum) -->
+              <Storyboard x:Key="ProgressFillStory">
+                <DoubleAnimationUsingKeyFrames
+                    Storyboard.TargetName="FillElement"
+                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                  <LinearDoubleKeyFrame KeyTime="0:0:0"    Value="0"/>
+                  <LinearDoubleKeyFrame KeyTime="0:0:0.5"  Value="0.5"/>
+                  <LinearDoubleKeyFrame KeyTime="0:0:1"    Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+              </Storyboard>
+              <!-- Stripe crawl animation (continuous while visible) -->
+              <Storyboard x:Key="StripeCrawlStory" RepeatBehavior="Forever">
+                <DoubleAnimation
+                    Storyboard.TargetName="StripeTranslate"
+                    Storyboard.TargetProperty="X"
+                    From="0" To="28"
+                    Duration="0:0:0.9">
+                  <DoubleAnimation.EasingFunction>
+                    <LinearEase/>
+                  </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+              </Storyboard>
+            </ControlTemplate.Resources>
+
+            <Grid>
+              <!-- Track background -->
+              <Border x:Name="Background"
+                      Background="{TemplateBinding Background}"
+                      CornerRadius="4"/>
+              <!-- Track sizing element -->
+              <Border x:Name="PART_Track" Background="Transparent"/>
+              <!-- Fill element (left-aligned, scale-driven progress) -->
+              <Border x:Name="FillElement"
+                      HorizontalAlignment="Left"
+                      CornerRadius="4"
+                      ClipToBounds="True"
+                      RenderTransformOrigin="0,0.5">
+                <Border.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform x:Name="FillScale" ScaleX="0"/>
+                  </TransformGroup>
+                </Border.RenderTransform>
+                <Grid>
+                  <!-- Solid gradient fill -->
+                  <Border Background="{TemplateBinding Foreground}"/>
+                  <!-- Diagonal stripe overlay -->
+                  <Border x:Name="StripeOverlay" Opacity="0.22">
+                    <Border.RenderTransform>
+                      <TranslateTransform x:Name="StripeTranslate" X="0"/>
+                    </Border.RenderTransform>
+                    <Border.Background>
+                      <LinearGradientBrush StartPoint="0,0"
+                                           EndPoint="1,1"
+                                           SpreadMethod="Tile"
+                                           TileMode="Tile"
+                                           Viewport="0,0,0.14,0.14"
+                                           ViewportUnits="RelativeToBoundingBox">
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="0.38"/>
+                        <GradientStop Color="#FFFFFF"      Offset="0.50"/>
+                        <GradientStop Color="Transparent" Offset="0.62"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                      </LinearGradientBrush>
+                    </Border.Background>
+                  </Border>
+                </Grid>
+              </Border>
+            </Grid>
+
+            <ControlTemplate.Triggers>
+              <!-- Animate fill on value change -->
+              <EventTrigger RoutedEvent="ValueChanged">
+                <BeginStoryboard Storyboard="{StaticResource ProgressFillStory}"/>
+              </EventTrigger>
+              <!-- Start stripe crawl when loaded -->
+              <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource StripeCrawlStory}"
+                                 x:Name="StripeAnim"/>
+              </EventTrigger>
+              <!-- Hide fill at 100% (optional: show completed state) -->
+              <Trigger Property="Value" Value="0">
+                <Setter TargetName="FillElement" Property="Visibility"
+                        Value="Hidden"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
   </Application.Resources>
 </Application>
