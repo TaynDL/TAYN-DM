@@ -600,7 +600,7 @@
                     From="0" To="28"
                     Duration="0:0:0.9">
                   <DoubleAnimation.EasingFunction>
-                    <LinearEase/>
+                    <SineEase EasingMode="EaseInOut"/>
                   </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
               </Storyboard>
