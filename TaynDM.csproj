@@ -16,8 +16,5 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\tayn-logo.jpg" />
-    <Page Include="Themes\Dark.xaml" />
-    <Page Include="Themes\Light.xaml" />
-    <Page Include="Controls\SpeedChart.xaml" />
   </ItemGroup>
 </Project>
