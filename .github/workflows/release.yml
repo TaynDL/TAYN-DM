@@ -23,15 +23,24 @@ jobs:
       - name: Restore
         run: dotnet restore TaynDM.csproj
 
-      - name: Build (Release)
-        run: dotnet publish TaynDM.csproj -c Release -r win-x64 --self-contained false -o ./publish
+      # ── Framework-dependent (portable, small) ──
+      - name: Publish (portable)
+        run: dotnet publish TaynDM.csproj -c Release -r win-x64 --self-contained false -o ./publish-portable
 
-      - name: Zip (Portable)
-        run: Compress-Archive -Path ./publish/* -DestinationPath ./TaynDM-${{ github.ref_name }}-portable.zip
+      - name: Zip (portable)
+        run: Compress-Archive -Path ./publish-portable/* -DestinationPath ./TaynDM-${{ github.ref_name }}-portable.zip
+
+      # ── Self-contained (no prerequisites needed) ──
+      - name: Publish (self-contained)
+        run: dotnet publish TaynDM.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -p:IncludeNativeLibrariesForSelfExtract=true -o ./publish-standalone
+
+      - name: Zip (standalone)
+        run: Compress-Archive -Path ./publish-standalone/* -DestinationPath ./TaynDM-${{ github.ref_name }}-standalone.zip
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
             ./TaynDM-${{ github.ref_name }}-portable.zip
+            ./TaynDM-${{ github.ref_name }}-standalone.zip
           generate_release_notes: false
