@@ -592,18 +592,6 @@
                   <LinearDoubleKeyFrame KeyTime="0:0:1"    Value="1"/>
                 </DoubleAnimationUsingKeyFrames>
               </Storyboard>
-              <!-- Stripe crawl animation (continuous while visible) -->
-              <Storyboard x:Key="StripeCrawlStory" RepeatBehavior="Forever">
-                <DoubleAnimation
-                    Storyboard.TargetName="StripeTranslate"
-                    Storyboard.TargetProperty="X"
-                    From="0" To="28"
-                    Duration="0:0:0.9">
-                  <DoubleAnimation.EasingFunction>
-                    <SineEase EasingMode="EaseInOut"/>
-                  </DoubleAnimation.EasingFunction>
-                </DoubleAnimation>
-              </Storyboard>
             </ControlTemplate.Resources>
 
             <Grid>
@@ -627,21 +615,12 @@
                 <Grid>
                   <!-- Solid gradient fill -->
                   <Border Background="{TemplateBinding Foreground}"/>
-                  <!-- Diagonal stripe overlay -->
-                  <Border x:Name="StripeOverlay" Opacity="0.22">
-                    <Border.RenderTransform>
-                      <TranslateTransform x:Name="StripeTranslate" X="0"/>
-                    </Border.RenderTransform>
+                  <!-- Subtle highlight stripe -->
+                  <Border Opacity="0.15">
                     <Border.Background>
-                      <LinearGradientBrush StartPoint="0,0"
-                                           EndPoint="1,1"
-                                           SpreadMethod="Tile"
-                                           Viewport="0,0,0.14,0.14"
-                                           ViewportUnits="RelativeToBoundingBox">
+                      <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="Transparent" Offset="0"/>
-                        <GradientStop Color="Transparent" Offset="0.38"/>
-                        <GradientStop Color="#FFFFFF"      Offset="0.50"/>
-                        <GradientStop Color="Transparent" Offset="0.62"/>
+                        <GradientStop Color="#FFFFFF" Offset="0.5"/>
                         <GradientStop Color="Transparent" Offset="1"/>
                       </LinearGradientBrush>
                     </Border.Background>
@@ -655,12 +634,7 @@
               <EventTrigger RoutedEvent="ValueChanged">
                 <BeginStoryboard Storyboard="{StaticResource ProgressFillStory}"/>
               </EventTrigger>
-              <!-- Start stripe crawl when loaded -->
-              <EventTrigger RoutedEvent="Loaded">
-                <BeginStoryboard Storyboard="{StaticResource StripeCrawlStory}"
-                                 x:Name="StripeAnim"/>
-              </EventTrigger>
-              <!-- Hide fill at 100% (optional: show completed state) -->
+              <!-- Hide fill at 0% -->
               <Trigger Property="Value" Value="0">
                 <Setter TargetName="FillElement" Property="Visibility"
                         Value="Hidden"/>
