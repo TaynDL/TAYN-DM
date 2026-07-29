@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -28,10 +28,7 @@ jobs:
         run: dotnet publish TaynDM.csproj -c Release -r win-x64 --self-contained false -o ./publish-portable
 
       - name: Zip portable
-        run: |
-          cd publish-portable
-          zip -r ../TaynDM-${{ github.ref_name }}-portable.zip .
-          cd ..
+        run: Compress-Archive -Path ./publish-portable/* -DestinationPath ./TaynDM-${{ github.ref_name }}-portable.zip
 
       # Create Release with only portable asset
       - name: Create Release
