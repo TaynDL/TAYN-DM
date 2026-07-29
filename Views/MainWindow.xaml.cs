@@ -109,7 +109,17 @@ public partial class MainWindow : Window
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        MainWindow_SizeChanged(this, new SizeChangedEventArgs(SizeChangedEvent));
+        // Trigger initial responsive state by checking actual width
+        if (ActualWidth < 1000)
+        {
+            DetailsPanel.Visibility = Visibility.Collapsed;
+            MainShell.ColumnDefinitions[2].Width = new GridLength(0);
+        }
+        else
+        {
+            DetailsPanel.Visibility = Visibility.Visible;
+            MainShell.ColumnDefinitions[2].Width = new GridLength(292);
+        }
 
         CenterPanel.Opacity = 0;
         var move = new TranslateTransform(0, 14);
