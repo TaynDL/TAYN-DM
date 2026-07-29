@@ -145,7 +145,7 @@ public partial class MainWindow : Window
 
     // ── Download listing ─────────────────────────────────────────────────
 
-    private void DownloadsList_SelectionChanged(object sender, SelectionChangedEventArgs<DownloadItem> e)
+    private void DownloadsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         => viewModel.SelectedDownload = e.AddedItems.Cast<DownloadItem>().FirstOrDefault();
 
     // ── External link injection (from App.xaml.cs) ───────────────────
