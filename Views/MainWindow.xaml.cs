@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -109,8 +108,7 @@ public partial class MainWindow : Window
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        // Trigger initial responsive state
-        MainWindow_SizeChanged(this, new SizeChangedEventArgs(SizeChangedEvent, this, this));
+        MainWindow_SizeChanged(this, new SizeChangedEventArgs(SizeChangedEvent));
 
         CenterPanel.Opacity = 0;
         var move = new TranslateTransform(0, 14);
@@ -135,20 +133,64 @@ public partial class MainWindow : Window
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
         if (new SettingsWindow(viewModel.Settings) { Owner = this }.ShowDialog() == true)
-            viewModel.RefreshSettings();
+            viewModel.RefreshEngineIfIdle();
     }
 
     // ── Download search ───────────────────────────────────────────────
 
-    private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        => viewModel.SearchText = SearchBox.Text;
+    private void Search_Changed(object sender, RoutedEventArgs e)
+        => viewModel.SearchText = SearchBox?.Text ?? string.Empty;
 
     // ── Download listing ─────────────────────────────────────────────────
 
     private void DownloadsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         => viewModel.SelectedDownload = e.AddedItems.Cast<DownloadItem>().FirstOrDefault();
 
-    // ── External link injection (from App.xaml.cs) ───────────────────
+    // ── Download actions ─────────────────────────────────────────────
+
+    private void Add_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new AddDownloadWindow(viewModel.Settings.DefaultFolder)
+        {
+            Owner = this
+        };
+
+        if (dialog.ShowDialog() != true) return;
+
+        try
+        {
+            viewModel.AddDownload(dialog.Folder, dialog.DownloadUrl);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                this,
+                "\u062E\u0637\u0627: " + ex.Message,
+                "TaynDM",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+    }
+
+    private void Start_Click(object sender, RoutedEventArgs e)
+        => viewModel.EnqueueSelected(viewModel.SelectedDownload);
+
+    private void Pause_Click(object sender, RoutedEventArgs e)
+        => viewModel.PauseSelected(viewModel.SelectedDownload);
+
+    private void Remove_Click(object sender, RoutedEventArgs e)
+        => viewModel.RemoveSelected(viewModel.SelectedDownload, this);
+
+    private void OpenFolder_Click(object sender, RoutedEventArgs e)
+        => viewModel.OpenFolder(viewModel.SelectedDownload);
+
+    private void PriorityUp_Click(object sender, RoutedEventArgs e)
+        => viewModel.ChangePriority(viewModel.SelectedDownload, 1);
+
+    private void PriorityDown_Click(object sender, RoutedEventArgs e)
+        => viewModel.ChangePriority(viewModel.SelectedDownload, -1);
+
+    // ── External link injection ──────────────────────────────────────
 
     public void AddExternalLink(string url) => viewModel.AddExternalLink(url);
 }
